@@ -2,7 +2,7 @@ import Styled, { css } from 'styled-components';
 
 export const Card = Styled.div`
   ${({ theme }) => css `
-    background-color: ${theme.colors.lightBlue};
+    background-color: ${theme.colors.white};
     border-radius: 1rem;
     display: flex;
     flex: 1;
