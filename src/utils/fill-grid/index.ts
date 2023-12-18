@@ -5,8 +5,8 @@
 
 // By setting up baseUrl and give folder name that you want to make availabe globaly in our tsconfig.json file.
 import { GRID, NUMBERS } from 'typings';
-import { ShuffleArray } from 'utils';
-import { isInRow, isInCol } from 'utils';
+import { ShuffleArray, identifySquare } from 'utils';
+import { isInRow, isInCol, isInSquare, checkGrid } from 'utils';
 
 const gridStaicNum: GRID = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -28,14 +28,14 @@ let numbers: NUMBERS[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
  * @param grid 9x9 Sudoku Grid function.
  */
 
-const FillGrid = function (grid: GRID) {
+const fillGrid = function (grid: GRID) {
   let row = 0;
   let col = 0;
 
   for (let i = 0; i < 81; i++) {
     row = Math.floor(i / 9);
     col = i % 9;
-    console.log(`Step${i + 1}: Row: ${row} Col: ${col}`);
+    // console.log(`Step${i + 1}: Row: ${row} Col: ${col}`);
 
     if (grid[row][col] === 0) {
       ShuffleArray(numbers);
@@ -45,18 +45,24 @@ const FillGrid = function (grid: GRID) {
         if (!isInRow({ grid, row, value })) {
           // Is it not in grid column?
           if (!isInCol({ grid, col, value })) {
+            const square = identifySquare({ grid, row, col });
             // Is it not in grid square?
-            //...If it is true
-            grid[row][col] = value;
-            // Check if grid is full, if yes stop and return true
-            // return true;
+            if(!isInSquare({square, value})) {
+              //...If it is true.
+              grid[row][col] = value;
+              // Check if grid is full, if yes stop and return true
+              if(checkGrid(grid)) return true;
+              // Otherwise we run fillGrid function and pass grid.
+              else if(fillGrid(grid)) return true;
+            }
           }
         }
-        
+
       }
       break;
     }
   }
+  grid[row][col] = 0;
 };
 
-export default FillGrid;
+export default fillGrid;
