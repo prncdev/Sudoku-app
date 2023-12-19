@@ -3,7 +3,6 @@ import Styled, { css } from "styled-components";
 export const NewGameButton = Styled.button`
   ${({ theme }) => css`
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
     height: 2.5rem;
@@ -21,12 +20,14 @@ export const NewGameButton = Styled.button`
     transition: all ${theme.transition};
 
     &:hover {
+      opacity: 1;
       color: ${theme.colors.black};
       background-color: ${theme.colors.lightBlue};
       border-color: ${theme.colors.blue};
     }
-
+    
     &:active {
+      opacity: 1;
       color: ${theme.colors.black};
       background-color: ${theme.colors.blue};
       border-color: ${theme.colors.lightBlue};
