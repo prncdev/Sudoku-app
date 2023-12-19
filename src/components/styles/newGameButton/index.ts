@@ -3,6 +3,7 @@ import Styled, { css } from "styled-components";
 export const NewGameButton = Styled.button`
   ${({ theme }) => css`
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: center;
     height: 2.5rem;
